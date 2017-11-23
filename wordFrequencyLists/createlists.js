@@ -23,7 +23,8 @@ fs.recurseSync('wordFrequencyLists', '**/*.txt', (filename, relative) => {
         sql += "definition varchar(1000)\n);\n";
         var data = fs.readFileSync(filename, 'utf8');
         var words = data.split("\n");
-        for (var i in words) {
+        for
+         (var i in words) {
             sql += words[i] ? `INSERT INTO ${language} VALUES('${words[i].replace(" ", "', ")});\n` : "";
         }
         queries.push(sql);
