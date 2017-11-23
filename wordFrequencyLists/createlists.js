@@ -3,9 +3,9 @@ var { Client } = require('pg');
 var lang = require('./lang');
 
 const db = {
-    user: process.env.DBPASSWORD,
+    user: process.env.DBUSERNAME,
     host: 'localhost',
-    database: process.env.DBPASSWORD,
+    database: process.env.DBNAME,
     password: process.env.DBPASSWORD,
     port: 5432,
 };
