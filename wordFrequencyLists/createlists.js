@@ -12,7 +12,7 @@ const db = {
 var client = new Client(db);
 
 var queries = [];
-fs.recurseSync('2016', '**/*.txt', (filename, relative) => {
+fs.recurseSync('wordFrequencyLists', '**/*.txt', (filename, relative) => {
     var lang_code = relative.split("/")[0];
     if (lang[lang_code]) {
         var language = lang[lang_code]['name'];
