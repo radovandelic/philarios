@@ -16,7 +16,8 @@ fs.recurseSync('wordFrequencyLists', '**/*.txt', (filename, relative) => {
     var lang_code = relative.split("/")[0];
     if (lang[lang_code]) {
         var language = lang[lang_code]['name'];
-        var sql = `CREATE TABLE ${language} `;
+        var sql = `DROP TABLE ${language};`;
+        sql += `CREATE TABLE ${lang_code} `;
         sql += "(\nword varchar(50), ";
         sql += "frequency int, ";
         sql += "type varchar(10), ";
@@ -25,7 +26,7 @@ fs.recurseSync('wordFrequencyLists', '**/*.txt', (filename, relative) => {
         var words = data.split("\n");
         for
          (var i in words) {
-            sql += words[i] ? `INSERT INTO ${language} VALUES('${words[i].replace(" ", "', ")});\n` : "";
+            sql += words[i] ? `INSERT INTO ${lang_code} VALUES('${words[i].replace(" ", "', ")});\n` : "";
         }
         queries.push(sql);
     }

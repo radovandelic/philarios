@@ -2,6 +2,8 @@ import { version } from '../../package.json';
 import { Router } from 'express';
 import facets from './facets';
 import { Pool } from 'pg';
+//import c from '../controllers';
+import { translate } from '../externals';
 
 export default ({ config, db }) => {
 	let api = Router();
@@ -13,6 +15,12 @@ export default ({ config, db }) => {
 	api.get('/', (req, res) => {
 		res.json({ version });
 	});
+
+	api.get('/:userid/:level', (req, res) => {
+		translate({}, (err, data) => {
+			res.json(err || JSON.parse(data.body));
+		})
+	})
 
 	return api;
 }

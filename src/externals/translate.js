@@ -1,11 +1,13 @@
-var translator = require('google-translator');
+var request = require('request');
 
-/*
-Translate 'Hello'
-from	:	English
-to		:	French
-*/
-
-translator('en', 'fr', "Hello", response => {
-    console.log(JSON.stringify(response));
-});
+module.exports = (query, callback) => {
+    query = {
+        from: "fr",
+        dest: "en",
+        format: "json",
+        phrase: "bonjour",
+        pretty: "false",
+        slashes: false
+    }
+    request.get("https://glosbe.com/gapi/translate", { qs: query }, callback)
+}
