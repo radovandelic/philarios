@@ -15,9 +15,7 @@ var queries = [];
 fs.recurseSync('wordFrequencyLists', '**/*.txt', (filename, relative) => {
     var lang_code = relative.split("/")[0];
     if (lang[lang_code]) {
-        var language = lang[lang_code]['name'];
-        var sql = `DROP TABLE ${language};`;
-        sql += `CREATE TABLE ${lang_code} `;
+        var sql = `CREATE TABLE ${lang_code} `;
         sql += "(\nword varchar(50), ";
         sql += "frequency int, ";
         sql += "type varchar(10), ";
