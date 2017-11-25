@@ -15,16 +15,19 @@ var queries = [];
 fs.recurseSync('wordFrequencyLists', '**/*.txt', (filename, relative) => {
     var lang_code = relative.split("/")[0];
     if (lang[lang_code]) {
-        var sql = `CREATE TABLE ${lang_code} `;
-        sql += "(\nword varchar(50), ";
+        var sql = `DROP TABLE ${lang_code} ;`;
+        sql += `CREATE TABLE ${lang_code} `;
+        sql += "(\nid bigserial PRIMARY KEY, ";
+        sql += "word varchar(50) NOT NULL, ";
         sql += "frequency int, ";
         sql += "type varchar(10), ";
-        sql += "definition varchar(1000)\n);\n";
+        sql += "definition varchar(1000) ";
+        sql += "\n);\n";
         var data = fs.readFileSync(filename, 'utf8');
         var words = data.split("\n");
         for
          (var i in words) {
-            sql += words[i] ? `INSERT INTO ${lang_code} VALUES('${words[i].replace(" ", "', ")});\n` : "";
+            sql += words[i] ? `INSERT INTO ${lang_code}(word, frequency) VALUES('${words[i].replace(" ", "', ")});\n` : "";
         }
         queries.push(sql);
     }
