@@ -9,7 +9,7 @@ const db = {
 };
 
 const getWords = (query, callback) => {
-    var offset = query.stage * query.level * 10;
+    var offset = query.stage * 100 + query.level * 10;
     if (!isNaN(offset)) {
         var client = new Client(db);
         client.connect();
