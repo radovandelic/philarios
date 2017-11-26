@@ -101,7 +101,14 @@ export default ({ config, db }) => {
 			pretty: false
 		}
 		translate(query, req.params.word, (err, data) => {
-			res.json(err || JSON.parse(data.body).tuc);
+			var translations = []
+			if (!err) {
+				var translationsObject = JSON.parse(data.body).tuc;
+				for (var i in translationsObject) {
+					if (translationsObject[i].phrase) translations.push(translationsObject[i].phrase.text);
+				}
+			}
+			res.json(err || translations);
 		})
 	})
 	api.get('/translate/test', (req, res) => {
