@@ -46,7 +46,7 @@ export default ({ config, db }) => {
 		client.connect();
 		client.query(sql, (err, data) => {
 			for (var i in data.rows) {
-
+				return;
 			}
 		})
 
@@ -92,7 +92,18 @@ export default ({ config, db }) => {
 			t(0);
 		})
 	})
+	api.get('/translate/:from/:dest/:word', (req, res) => {
 
+		var query = {
+			from: req.params.from,
+			dest: req.params.dest,
+			format: "json",
+			pretty: false
+		}
+		translate(query, req.params.word, (err, data) => {
+			res.json(err || JSON.parse(data.body).tuc);
+		})
+	})
 	api.get('/translate/test', (req, res) => {
 
 		var query = {

@@ -8,7 +8,7 @@ const db = {
     port: 5432,
 };
 
-const getWords = (query, callback) => {
+const getWords = (query/*{language, stage, level}*/, callback) => {
     var offset = query.stage * 100 + query.level * 10;
     if (!isNaN(offset)) {
         var client = new Client(db);
