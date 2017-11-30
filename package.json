@@ -34,6 +34,7 @@
     "body-parser": "^1.13.3",
     "compression": "^1.5.2",
     "cors": "^2.7.1",
+    "country-data": "0.0.31",
     "express": "^4.13.3",
     "file-system": "^2.2.2",
     "google-translator": "^1.0.1",
@@ -53,5 +54,5 @@
   "bugs": {
     "url": "https://github.com/radovandelic/philarios/issues"
   },
-  "homepage": "https://philarios.cf"
+  "homepage": "https://philarios.ml"
 }

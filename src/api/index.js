@@ -18,14 +18,12 @@ var client = new Client(db);
 export default ({ config, db }) => {
 	let api = Router();
 
-	// mount the facets resource
-	//api.use('/facets', facets({ config, db }));
-
-	// perhaps expose some API metadata at the root
+	//test route
 	api.get('/', (req, res) => {
 		res.json({ version });
 	});
 
+	//get wordlist route
 	api.get('/words/:lang/:stage/:level', (req, res) => {
 		getWords(req.params, (err, data) => {
 			if (err) return res.status(500).json(err);
@@ -35,7 +33,9 @@ export default ({ config, db }) => {
 	})
 
 	api.post('/progress/', (req, res) => {
-		var attempts = req.body.attempts;
+		//work in progress
+
+		/*var attempts = req.body.attempts;
 		var userid = req.body.userid;
 		var sql = `SELECT * FROM progress WHERE userid = '${userid}' AND (`;
 		for (var i in attempts) {
@@ -48,11 +48,12 @@ export default ({ config, db }) => {
 			for (var i in data.rows) {
 				return;
 			}
-		})
-
+		})*/
 	})
 
 	api.get('/smartpractice/:userid', (req, res) => {
+		//work in progress
+
 		/*var attempts = req.body.attempts;
 		var userid = req.body.userid;
 		var sql = `SELECT * FROM progress WHERE userid = '${userid}' AND (`;
@@ -67,6 +68,7 @@ export default ({ config, db }) => {
 		})*/
 	})
 
+	//get full wordlist with translations
 	api.get('/wordsfull/:lang/:dest/:stage/:level', (req, res) => {
 		getWords(req.params, (err, data) => {
 			if (err) return res.json(err);
@@ -89,9 +91,11 @@ export default ({ config, db }) => {
 					res.json(words);
 				}
 			}
-			t(0);
+			t(0); //recursion in order to avoid overloading
 		})
 	})
+
+	//translation route
 	api.get('/translate/:from/:dest/:word', (req, res) => {
 
 		var query = {
@@ -111,6 +115,8 @@ export default ({ config, db }) => {
 			res.json(err || translations);
 		})
 	})
+
+	//test translation api
 	api.get('/translate/test', (req, res) => {
 
 		var query = {

@@ -1,56 +1,41 @@
-Express & ES6 REST API Boilerplate
+PHILARIOS
 ==================================
 
-This is a straightforward boilerplate for building REST APIs with ES6 and Express.
-
-- ES6 support via [babel](https://babeljs.io)
-- REST resources as middleware via [resource-router-middleware](https://github.com/developit/resource-router-middleware)
-- CORS support via [cors](https://github.com/troygoode/node-cors)
-- Body Parsing via [body-parser](https://github.com/expressjs/body-parser)
-
-> Tip: If you are using [Mongoose](https://github.com/Automattic/mongoose), you can automatically expose your Models as REST resources using [restful-mongoose](https://git.io/restful-mongoose).
-
-<a target='_blank' rel='nofollow' href='https://app.codesponsor.io/link/WbARjbDRQz5y3N6VBEMPU4LW/developit/express-es6-rest-api'>
-  <img alt='Sponsor' width='888' height='68' src='https://app.codesponsor.io/embed/WbARjbDRQz5y3N6VBEMPU4LW/developit/express-es6-rest-api.svg' />
-</a>
+This is the main api for acquiring wordlists, translations and user progress data for the philarios language learning application.
 
 Getting Started
 ---------------
 
+1. Install PostgreSQL
+
+2. Clone the repository
 ```sh
-# clone it
-git clone git@github.com:developit/express-es6-rest-api.git
-cd express-es6-rest-api
-
-# Make it your own
-rm -rf .git && git init && npm init
-
-# Install dependencies
-npm install
-
-# Start development live-reload server
-PORT=8080 npm run dev
-
-# Start production server:
-PORT=8080 npm start
+git clone https://github.com/radovandelic/philarios.git
+cd philarios 
 ```
-Docker Support
-------
+
+3. Install dependencies
 ```sh
-cd express-es6-rest-api
+npm install
+```
+4. Set DBUSERNAME, DBPASSWORD and DBNAME environment variables to your SQL username, password and database name.
 
-# Build your docker
-docker build -t es6/api-service .
-#            ^      ^           ^
-#          tag  tag name      Dockerfile location
+5. Populate SQL tables with word frequency lists.
+```sh
+# DBUSERNAME=<username> DBPASSWORD=<password> DBNAME=<db name> 
+node resources/populateWordLists.js
+```
 
-# run your docker
-docker run -p 8080:8080 es6/api-service
-#                 ^            ^
-#          bind the port    container tag
-#          to your host
-#          machine port   
+6. Start development live-reload server
+```sh
+# DBUSERNAME=<username> DBPASSWORD=<password> DBNAME=<db name> 
+npm run dev
+```
 
+7. Start production server:
+```sh
+# DBUSERNAME=<username> DBPASSWORD=<password> DBNAME=<db name> 
+npm start
 ```
 
 License
