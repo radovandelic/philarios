@@ -1,6 +1,5 @@
-var request = require('request');
+var translator = require('google-translator');
 
-module.exports = (query, word, callback) => {
-    query.phrase = word;
-    request.get("https://glosbe.com/gapi/translate", { qs: query }, callback)
+module.exports = (from, to, word, callback) => {
+    translator(from, to, word, callback);
 }

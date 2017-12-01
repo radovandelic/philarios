@@ -12,11 +12,9 @@ const db = {
 var client = new Client(db);
 
 var queries = [];
-var lang2 = {};
 fs.recurseSync('wordFrequencyLists', '**/*.txt', (filename, relative) => {
     var lang_code = relative.split("/")[0];
     if (lang[lang_code]) {
-        lang2[lang_code] = lang[lang_code];
         //var sql = `DROP TABLE ${lang_code} ;`;
         var sql = `CREATE TABLE ${lang_code} `;
         sql += "(\nid bigserial PRIMARY KEY, ";
@@ -34,17 +32,15 @@ fs.recurseSync('wordFrequencyLists', '**/*.txt', (filename, relative) => {
         queries.push(sql);
     }
 })
-console.log(JSON.stringify(lang2));
 
-/*
+
 var i = 0;
 client.connect();
 var query = () => {
     client.query(queries[i], (err, response) => {
         i++;
-        console.log(err || response);
         if (i < queries.length) query();
         else client.end();
     })
 }
-query();*/
+query();

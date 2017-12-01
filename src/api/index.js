@@ -96,21 +96,13 @@ export default ({ config, db }) => {
 	})
 
 	//translation route
-	api.get('/translate/:from/:dest/:word', (req, res) => {
+	api.get('/translate/:from/:to/:word', (req, res) => {
 
-		var query = {
-			from: req.params.from,
-			dest: req.params.dest,
-			format: "json",
-			pretty: false
-		}
-		translate(query, req.params.word, (err, data) => {
+		translate(req.params.from, req.params.to, req.params.word, (data, err) => {
 			var translations = []
 			if (!err) {
-				var translationsObject = JSON.parse(data.body).tuc;
-				for (var i in translationsObject) {
-					if (translationsObject[i].phrase) translations.push(translationsObject[i].phrase.text);
-				}
+				translations = data.target.synonyms //clean data
+					.map(word => { return word.replace("!", "").replace(".", "").replace("?", ""); })
 			}
 			res.json(err || translations);
 		})
@@ -119,14 +111,10 @@ export default ({ config, db }) => {
 	//test translation api
 	api.get('/translate/test', (req, res) => {
 
-		var query = {
-			from: "fr",
-			dest: "en",
-			format: "json",
-			pretty: false
-		}
-		translate(query, "bonjour", (err, data) => {
-			res.json(err || JSON.parse(data.body));
+		var from = "fr";
+		var to = "en";
+		translate(from, to, "bonjour", (data, err) => {
+			res.json(err || data.target.synonyms);
 		})
 	})
 
