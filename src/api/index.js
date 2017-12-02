@@ -2,20 +2,13 @@ import { version } from '../../package.json';
 import { Router } from 'express';
 import facets from './facets';
 //import c from '../controllers';
-import { translate } from '../externals';
+import { translate, imageSearch } from '../externals';
 import { getWords } from '../logic';
 
 import { Client } from 'pg';
-const db = {
-	user: process.env.DBUSERNAME,
-	host: 'localhost',
-	database: process.env.DBNAME,
-	password: process.env.DBPASSWORD,
-	port: 5432,
-};
-var client = new Client(db);
 
 export default ({ config, db }) => {
+	var client = new Client(db);
 	let api = Router();
 
 	//test route
@@ -115,6 +108,14 @@ export default ({ config, db }) => {
 		var to = "en";
 		translate(from, to, "bonjour", (data, err) => {
 			res.json(err || data.target.synonyms);
+		})
+	})
+
+	//image search api
+	api.get('/images/:word', (req, res) => {
+		imageSearch(req.params.word, config, (err, result) => {
+			if (err) { throw new Error(err); }
+			res.json(result.photos.photo[0].url_m)
 		})
 	})
 

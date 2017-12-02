@@ -1,3 +1,4 @@
 import translate from './translate';
+import imageSearch from './flickr'
 
-export { translate };
+export { translate, imageSearch };
