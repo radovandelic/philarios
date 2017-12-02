@@ -4,7 +4,7 @@ import cors from 'cors';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
 import api from './api';
-import { config, db } from './config';
+import { config, db } from './config/index';
 
 let app = express();
 app.server = http.createServer(app);
