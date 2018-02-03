@@ -1,5 +1,5 @@
 var Flickr = require('flickrapi');
-var config = require('../config')
+
 module.exports = (text, config, callback) => {
     var flickrOptions = {
         api_key: config.flickr_key,

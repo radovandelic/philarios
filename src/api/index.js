@@ -1,14 +1,10 @@
 import { version } from '../../package.json';
 import { Router } from 'express';
-import facets from './facets';
 //import c from '../controllers';
 import { translate, imageSearch } from '../externals';
 import { getWords } from '../logic';
 
-import { Client } from 'pg';
-
-export default ({ config, db }) => {
-	var client = new Client(db);
+export default ({ config }) => {
 	let api = Router();
 
 	//test route
