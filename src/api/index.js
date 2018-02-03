@@ -68,15 +68,23 @@ export default ({ config, db }) => {
 			var words = data.rows;
 			var query = {
 				from: req.params.lang,
-				dest: req.params.dest,
+				to: req.params.dest,
 				format: "json",
 				pretty: "false"
 			}
 			var t = (i) => {
 				if (i < words.length) {
-					translate(query, words[i].word, (err, data) => {
+					translate(query.from, query.to, words[i].word, (data, err) => {
 						if (err) words[i].err = err;
-						else words[i].translations = JSON.parse(data.body).tuc;
+						else {
+							words[i].translations = [];
+							for (let word of data.translations) {
+								for (let translation of word.translations) {
+									words[i].translations.push(translation[0])
+								}
+							}
+
+						}
 						i++;
 						t(i);
 					})
@@ -91,6 +99,16 @@ export default ({ config, db }) => {
 	//translation route
 	api.get('/translate/:from/:to/:word', (req, res) => {
 
+		switch (req.params.to) {
+			case 'zh':
+				req.params.to = 'zh-TW';
+				break;
+			case 'bs':
+				req.params.to = 'hr';
+				break;
+			default:
+				break;
+		}
 		translate(req.params.from, req.params.to, req.params.word, (data, err) => {
 			var translations = []
 			if (!err) {

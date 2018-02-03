@@ -8,7 +8,7 @@ module.exports = (text, config, callback) => {
 
     Flickr.tokenOnly(flickrOptions, (error, flickr) => {
         flickr.photos.search({
-            text: text,
+            text: text,//
             page: 1,
             per_page: 1,
             sort: "relevance",
